@@ -32,9 +32,9 @@ const UserForm = () => {
     newErrors.firstName = "First name is required";
   }
 
-  if (!formData.middleName.trim()) {
-    newErrors.middleName = "Middle name is required";
-  }
+  // if (!formData.middleName.trim()) {
+  //   newErrors.middleName = "Middle name is required";
+  // }
 
   if (!formData.lastName.trim()) {
     newErrors.lastName = "Last name is required";
@@ -116,7 +116,7 @@ const UserForm = () => {
           name="middleName"
           value={formData.middleName}
           onChange={handleChange}
-          placeholder={errors.middleName ? errors.middleName : "Enter the Middle name"}
+          placeholder= "Enter the Middle name"
           className={errors.middleName ? "error" : ""}
         />
 
