@@ -1,0 +1,327 @@
+/* UserForm.css */
+:root {
+  --primary: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary: #7209b7;
+  --success: #06d6a0;
+  --danger: #ef476f;
+  --warning: #ffd166;
+  --light: #f8f9fa;
+  --dark: #212529;
+  --gray: #6c757d;
+  --light-gray: #e9ecef;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s ease;
+  --gradient: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-container .a {
+  padding: 40px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--dark);
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--gradient);
+  border-radius: 2px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--dark);
+  grid-column: span 1;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  transition: var(--transition);
+  background-color: var(--light);
+  grid-column: span 1;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+  background-color: white;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--gray);
+  opacity: 0.7;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.gender-options {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  grid-column: span 1;
+}
+
+.gender-options label {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.gender-options input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+  accent-color: var(--primary);
+}
+
+button {
+  grid-column: span 2;
+  background: var(--gradient);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: var(--border-radius);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.error {
+  border-color: var(--danger) !important;
+  background-color: rgba(239, 71, 111, 0.05) !important;
+}
+
+.error::placeholder {
+  color: var(--danger);
+}
+
+.error-text {
+  color: var(--danger);
+  font-size: 14px;
+  margin-top: 5px;
+  grid-column: span 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  form {
+    grid-template-columns: 1fr;
+  }
+  
+  .gender-options, button, .error-text {
+    grid-column: span 1;
+  }
+  
+  .form-container .a {
+    padding: 25px;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Animation for form elements */
+form > * {
+  animation: slideIn 0.5s ease-out backwards;
+}
+
+form > *:nth-child(1) { animation-delay: 0.1s; }
+form > *:nth-child(2) { animation-delay: 0.15s; }
+form > *:nth-child(3) { animation-delay: 0.2s; }
+form > *:nth-child(4) { animation-delay: 0.25s; }
+form > *:nth-child(5) { animation-delay: 0.3s; }
+form > *:nth-child(6) { animation-delay: 0.35s; }
+form > *:nth-child(7) { animation-delay: 0.4s; }
+form > *:nth-child(8) { animation-delay: 0.45s; }
+form > *:nth-child(9) { animation-delay: 0.5s; }
+form > *:nth-child(10) { animation-delay: 0.55s; }
+form > *:nth-child(11) { animation-delay: 0.6s; }
+form > *:nth-child(12) { animation-delay: 0.65s; }
+form > *:nth-child(13) { animation-delay: 0.7s; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom radio buttons */
+.gender-options input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--light-gray);
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.gender-options input[type="radio"]:checked {
+  border-color: var(--primary);
+}
+
+.gender-options input[type="radio"]:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* Focus states for accessibility */
+input:focus, textarea:focus, button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Loading animation for submit button */
+button.loading {
+  position: relative;
+  color: transparent;
+}
+
+button.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s ease infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Success message animation */
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--success);
+  color: white;
+  padding: 15px 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  animation: slideInRight 0.5s ease-out, fadeOut 0.5s ease-in 2.5s forwards;
+  z-index: 1000;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
