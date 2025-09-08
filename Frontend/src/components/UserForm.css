@@ -13,7 +13,7 @@
   --border-radius: 12px;
   --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   --transition: all 0.3s ease;
-  --gradient: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+  --gradient: linear-gradient(135deg, #84c6f2 0%, #4b94be 100%);
 }
 
 * {
@@ -36,7 +36,7 @@ body {
 .form-container {
   width: 100%;
   max-width: 800px;
-  background: white;
+  background: rgb(209, 225, 239);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   overflow: hidden;
