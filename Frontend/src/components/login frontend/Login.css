@@ -1,0 +1,113 @@
+/* Global styles */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #74ebd5, #9face6);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Common container */
+.auth-container {
+  width: 360px;
+  background: #fff;
+  padding: 35px 30px;
+  border-radius: 15px;
+  border: 2px solid #eee;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.auth-container:hover {
+  transform: scale(1.02);
+}
+
+/* Title */
+.auth-title {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form input {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form input:focus {
+  border-color: #2575fc;
+  outline: none;
+  box-shadow: 0 0 6px rgba(37, 117, 252, 0.3);
+}
+
+/* Button */
+.auth-button {
+  padding: 12px;
+  background: #2575fc;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.auth-button:hover {
+  background: #1d63d2;
+  transform: scale(1.03);
+}
+
+/* Links */
+.auth-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #444;
+}
+
+.auth-text a {
+  color: #2575fc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-text a:hover {
+  text-decoration: underline;
+}
+
+/* Forgot password */
+.forget-pass-link {
+  display: block;
+  margin: 10px 0;
+  font-size: 13px;
+  color: #e63946;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.forget-pass-link:hover {
+  color: #c71c2c;
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
