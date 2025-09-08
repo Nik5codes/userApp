@@ -15,14 +15,21 @@ const UserForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [showMessage, setShowMessage] = useState(false);
+const [fileInput, setFileInput] = useState(null);
+  
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    if(name==='aadhaar' && value.length  >12) return;
+    if(name==='phone' && value.length>10) return;
+
+
+    setFormData({...formData, [name]: value})  
+    if(errors[name]){
+      setErrors({...errors, [name]: "" })
+    }
   };
 
   const validate = () => {
@@ -32,10 +39,6 @@ const UserForm = () => {
     newErrors.firstName = "First name is required";
   }
 
-  // if (!formData.middleName.trim()) {
-  //   newErrors.middleName = "Middle name is required";
-  // }
-
   if (!formData.lastName.trim()) {
     newErrors.lastName = "Last name is required";
   }
@@ -44,10 +47,9 @@ const UserForm = () => {
     newErrors.gender = "Please select a gender";
   }
 
-  if (!formData.phone) {
+  if (!formData.phone.trim()) {
     newErrors.phone = "Phone number is required";
-  } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-    newErrors.phone = "Phone number must be 10 digits";
+  
   }
 
   if (!formData.email) {
@@ -58,8 +60,7 @@ const UserForm = () => {
 
   if (!formData.aadhaar) {
     newErrors.aadhaar = "Aadhaar number is required";
-  } else if (!/^[0-9]{12}$/.test(formData.aadhaar)) {
-    newErrors.aadhaar = "Aadhaar number must be 12 digits";
+ 
   }
 
   if (!formData.permanentAddress.trim()) {
@@ -74,7 +75,61 @@ const UserForm = () => {
   return Object.keys(newErrors).length === 0;
 };
 
-  // Submit handler
+const handleFocus= ()=>{
+  setShowMessage(true);
+}
+
+const handleKeyDown = (e) => {
+  if(e.key === "Enter"){
+    e.preventDefault();
+    setFormData((prev) =>({
+     ...prev,
+     currentAddress: prev.permanentAddress,
+    }))
+    setErrors((prev) => ({
+      ...prev, currentAddress: ""
+    }));
+  }
+};
+
+
+
+
+  const onChangeHandle = (e) => setFileInput(e.target.files[0]);
+
+  const handleImageUpload = async () => {
+    if (!fileInput) return;
+
+    const formData = new FormData();
+    formData.append("image", fileInput);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/images/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      fetchAndDisplayImage(data.id);
+    } catch (err) {
+      console.error("Error uploading image:", err);
+    }
+  };
+
+  const fetchAndDisplayImage = async (imageId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/images/${imageId}`);
+      if (!response.ok) throw new Error("Failed to fetch image");
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+
+      localStorage.setItem("selectedImageForDisplay", url);
+    } catch (err) {
+      console.error("Error fetching image:", err);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
@@ -106,7 +161,7 @@ const UserForm = () => {
           name="firstName"
           value={formData.firstName}
           onChange={handleChange}
-          placeholder={errors.firstName ? errors.firstName : "Enter the First name"}
+          placeholder={errors.firstName || "Enter the First name"}
           className={errors.firstName ? "error" : ""}
         />
 
@@ -116,7 +171,7 @@ const UserForm = () => {
           name="middleName"
           value={formData.middleName}
           onChange={handleChange}
-          placeholder= "Enter the Middle name"
+          placeholder= "Middle name(if any)"
           className={errors.middleName ? "error" : ""}
         />
 
@@ -126,7 +181,7 @@ const UserForm = () => {
           name="lastName"
           value={formData.lastName}
           onChange={handleChange}
-          placeholder={errors.lastName ? errors.lastName : "Enter the Last name"}
+          placeholder={errors.lastName || "Enter the Last name"}
           className={errors.lastName ? "error" : ""}
         />
 
@@ -134,9 +189,10 @@ const UserForm = () => {
         <div className="gender-options">
           <label><input type="radio" name="gender" value="male" checked={formData.gender === "male"} onChange={handleChange}/> Male</label>
           <label><input type="radio" name="gender" value="female" checked={formData.gender === "female"} onChange={handleChange}/> Female</label>
-          <label><input type="radio" name="gender" value="other" checked={formData.gender === "other"} onChange={handleChange}/> Other</label>
-        </div>
+          <label><input type="radio" name="gender" value="other" checked={formData.gender === "other"} onChange={handleChange}/> Other</label><br />
         {errors.gender && <p className="error-text">{errors.gender}</p>}
+        </div>
+        
 
         <label>Phone number</label>
         <input
@@ -144,7 +200,7 @@ const UserForm = () => {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          placeholder={errors.phone ? errors.phone : "Enter the Phone number"}
+          placeholder={errors.phone || "Enter the Phone number"}
           className={errors.phone ? "error" : ""}
         />
 
@@ -154,7 +210,7 @@ const UserForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder={errors.email ? errors.email : "Enter the email"}
+          placeholder={errors.email || "Enter the email"}
           className={errors.email ? "error" : ""}
         />
 
@@ -164,7 +220,7 @@ const UserForm = () => {
           name="aadhaar"
           value={formData.aadhaar}
           onChange={handleChange}
-          placeholder={errors.aadhaar ? errors.aadhaar : "Enter the Aadhaar number"}
+          placeholder={errors.aadhaar ||"Enter the Aadhaar number"}
           className={errors.aadhaar ? "error" : ""}
         />
 
@@ -173,7 +229,7 @@ const UserForm = () => {
           name="permanentAddress"
           value={formData.permanentAddress}
           onChange={handleChange}
-          placeholder={errors.permanentAddress ? errors.permanentAddress : "Enter the Permanent Address"}
+          placeholder={errors.permanentAddress ||"Enter the Permanent Address"}
           className={errors.permanentAddress ? "error" : ""}
         />
 
@@ -182,9 +238,36 @@ const UserForm = () => {
           name="currentAddress"
           value={formData.currentAddress}
           onChange={handleChange}
-          placeholder={errors.currentAddress ? errors.currentAddress : "Enter the Current Address"}
+          onFocus={handleFocus}
+          onKeyDown={handleKeyDown}
+          placeholder={errors.currentAddress || "Press Enter for same address as permanent address"}
           className={errors.currentAddress ? "error" : ""}
         />
+
+        {showMessage}
+
+
+    <div>
+      <input type="file" accept="image/*" onChange={onChangeHandle} />
+
+      <button
+        onClick={handleImageUpload}
+        style={{
+          margin: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#9f7aea",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+        }}
+      >
+        Upload Image
+      </button>
+
+   
+    </div>
+
 
         <button type="submit">Submit</button>
       </form>
